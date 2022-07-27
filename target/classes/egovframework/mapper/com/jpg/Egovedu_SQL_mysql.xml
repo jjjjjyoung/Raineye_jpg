@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduProgramDAO">
+
+	<insert id="regist" parameterType="egovframework.com.jpg.service.EduProgramVO" >
+	
+		INSERT INTO COMTNEDU(
+		    BBS_ID,
+		    NTT_ID,
+		    REGIST_ID,
+			STATUS,
+			AGREE_ID,
+			AGREE_DATE,
+			REGIST_DATE,
+			CANCLE_DATE,
+			EDU_TYPE,
+			EDU_APPLY_TEL,
+			EDU_APPLY_NAME
+	    ) VALUES(
+		    #{bbsId}, 
+		    #{nttId}, 
+		    #{registId}, 
+		    #{status},
+		    #{agreeId},
+		    #{agreeDate},
+		    SYSDATE(),
+		    #{cancleDate},
+		    #{eduType},
+		    #{eduApplyTel},
+		    #{eduApplyName}
+	    )
+	
+	</insert>
+	
+	<select id="seleteMyEdu" parameterType="egovframework.com.jpg.service.EduProgramVO" resultType="java.util.Map">
+	    SELECT
+	    	a.EDU_ID as eduId,
+			a.BBS_ID as bbsId,
+			a.NTT_ID as nttId,
+			a.REGIST_ID as registId,
+			a.STATUS as status,
+			a.AGREE_ID as agreeId,
+			a.AGREE_DATE as agreeDate,
+			a.REGIST_DATE as registDate,
+			a.CANCLE_DATE as cancleDate,
+			a.EDU_TYPE as eduType,
+			b.NTT_SJ as nttSj,
+			b.EDU_SUB_TITLE as eduSubTitle,
+			b.EDU_VAL as eduVal
+		FROM
+			COMTNEDU a
+			JOIN COMTNBBS b ON b.NTT_ID = a.NTT_ID 
+		WHERE
+			a.Regist_ID = #{registId}
+  		AND b.NTT_SJ != '이 글은 작성자에 의해서 삭제되었습니다.'
+		ORDER BY registDate DESC
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+	    
+	</select>
+	
+	<select id="seleteMyEduCnt" parameterType="egovframework.com.jpg.service.EduProgramVO" resultType="java.lang.Integer">
+	    SELECT
+	    	COUNT(*)
+		FROM
+			COMTNEDU a
+			JOIN COMTNBBS b ON b.NTT_ID = a.NTT_ID 
+		WHERE
+			a.Regist_ID = #{registId}
+  		AND b.NTT_SJ != '이 글은 작성자에 의해서 삭제되었습니다.'
+	</select>
+	
+	<update id="cancleMyEdu" parameterType="egovframework.com.jpg.service.EduProgramVO">
+	    UPDATE COMTNEDU
+	    	SET STATUS ='N',
+	    	CANCLE_DATE = SYSDATE()
+	    WHERE REGIST_ID = #{registId} and EDU_ID = #{eduId}
+	</update>
+	
+	
+	<select id="eduListAll" parameterType="egovframework.com.jpg.service.EduProgramVO" resultType="java.util.Map">
+	    SELECT
+	    	a.EDU_ID as eduId,
+			a.BBS_ID as bbsId,
+			a.NTT_ID as nttId,
+			a.REGIST_ID as registId,
+			a.STATUS as status,
+			a.AGREE_ID as agreeId,
+			a.AGREE_DATE as agreeDate,
+			a.REGIST_DATE as registDate,
+			a.CANCLE_DATE as cancleDate,
+			b.NTT_SJ as nttSj,
+			b.EDU_SUB_TITLE as eduSubTitle,
+			b.EDU_VAL as eduVal,
+			b.FRST_REGIST_PNTTM AS registDay
+		FROM 
+			COMTNEDU a
+			JOIN COMTNBBS b ON b.NTT_ID = a.NTT_ID
+		WHERE 1=1
+  		AND b.NTT_SJ != '이 글은 작성자에 의해서 삭제되었습니다.'
+   		<if test="searchCondition == 1">AND
+				b.NTT_SJ LIKE CONCAT ('%', #{searchKeyword},'%') 		
+		</if>
+		GROUP BY b.NTT_SJ
+		ORDER BY a.REGIST_DATE DESC
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	        
+	
+	<select id="selectListTotCnt" parameterType="egovframework.com.jpg.service.EduProgramVO" resultType="java.lang.Integer">
+	    SELECT
+	    	COUNT(*)
+		FROM 
+			COMTNEDU a
+			JOIN COMTNBBS b ON b.NTT_ID = a.NTT_ID
+			JOIN COMTNGNRLMBER c on c.ESNTL_ID = a.REGIST_ID
+		WHERE 1=1
+		<if test="searchCondition == 0">AND
+				c.MBER_NM LIKE CONCAT ('%', #{searchKeyword},'%') 		
+		</if>			
+   		<if test="searchCondition == 1">AND
+				b.NTT_SJ LIKE CONCAT ('%', #{searchKeyword},'%') 		
+		</if>
+
+	</select>        
+	
+	<select id="selectUser" resultType="egovframework.com.jpg.service.EduProgramVO">
+	    SELECT
+	    	a.EDU_ID as eduId,
+			a.BBS_ID as bbsId,
+			a.NTT_ID as nttId,
+			a.REGIST_ID as registId,
+			a.STATUS as status,
+			a.AGREE_ID as agreeId,
+			a.AGREE_DATE as agreeDate,
+			a.REGIST_DATE as registDate,
+			a.CANCLE_DATE as cancleDate,
+			c.MBER_NM as mberNm,
+			b.NTT_SJ as nttSj
+	    FROM
+	    	COMTNEDU a
+	    	JOIN COMTNBBS b ON b.NTT_ID = a.NTT_ID
+	    	JOIN COMTNGNRLMBER c on c.ESNTL_ID = a.REGIST_ID
+	    WHERE EDU_ID = #{idx}
+	    
+	</select>
+	
+	<select id="selectEduUserList" resultType="egovframework.com.jpg.service.EduProgramVO">
+	    SELECT
+	    	a.EDU_ID as eduId,
+			a.BBS_ID as bbsId,
+			a.NTT_ID as nttId,
+			a.REGIST_ID as registId,
+			a.STATUS as status,
+			a.AGREE_ID as agreeId,
+			a.AGREE_DATE as agreeDate,
+			a.REGIST_DATE as registDate,
+			a.CANCLE_DATE as cancleDate,
+			c.MBER_NM as mberNm,
+			b.NTT_SJ as nttSj,
+			c.MBER_EMAIL_ADRES as eduEmail,
+			a.EDU_TYPE as eduType,
+			a.EDU_APPLY_TEL as eduApplyTel
+	    FROM
+	    	COMTNEDU a
+	    	JOIN COMTNBBS b ON b.NTT_ID = a.NTT_ID
+	    	JOIN COMTNGNRLMBER c on c.ESNTL_ID = a.REGIST_ID
+	    WHERE b.NTT_ID = #{idx}
+	    
+	</select>
+	
+	<update id="updateUser" parameterType="egovframework.com.jpg.service.EduProgramVO">
+	    UPDATE COMTNEDU
+	    	SET STATUS =#{status},
+	    	AGREE_ID = #{agreeId}
+	    	<if test='status.equals("C")'>
+	    	,AGREE_DATE = SYSDATE()
+	    	</if>
+	    	<if test='status.equals("N")'>
+	    	,CANCLE_DATE = SYSDATE()
+	    	</if>
+	    WHERE REGIST_ID = #{registId} and EDU_ID = #{eduId}
+	    
+	</update>
+</mapper>

@@ -1,0 +1,227 @@
+@charset "utf-8";
+
+/* Base Style *****************************/
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+/* body { overflow-y: auto; } */
+
+/* login Layout *********************************/
+.login_form {
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login_form h1 {
+	width: 174px;
+	height: 25px;
+	background: url('../../images/egovframework/com/cmm/main/top_logo.png')
+		no-repeat;
+	margin-left: 47px;
+	text-indent: -10000em;
+}
+
+.idpw_form {
+	position: absolute;
+	top: 90px;
+	left: 14%;
+}
+
+.id_search {
+	float: left;
+	width: 281px;
+	padding-right: 65px;
+}
+
+.pw_search {
+	float: left;
+	padding-left: 65px;
+	border-left: 1px solid #e2e1e2;
+}
+
+.id_search h2, .pw_search h2 {
+	text-align: center;
+	font-size: 19px;
+	color: #222;
+}
+
+.login_type {
+	width: 100%;
+	margin-top: 25px;
+}
+
+.login_type ul {
+	font-size: 0;
+}
+
+.login_type ul li {
+	display: inline-block;
+	width: 50%;
+	text-align: center;
+}
+
+.login_type ul li:last-child {
+	width: 50%;
+}
+
+.login_type ul a {
+	display: block;
+	height: 33px;
+	line-height: 33px;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 0 33px;
+	background: #fff;
+    color: #6bc3b0;
+    border: 1px solid #6bc3b0;
+}
+.login_type ul li:nth-child(2) a {
+	
+	border-left:0;
+}
+
+.login_type ul li:hover a {
+	background-color: #6bc3b0;
+	color: #fff;
+    border: 1px solid #53b9a2;
+}
+
+.login_type ul a.on {
+	background: #6bc3b0;
+	color: #fff;
+	border: 1px solid #53b9a2;
+}
+
+.login_input {
+	margin-top: 10px;
+}
+
+.login_input ul li {
+	margin-bottom: 10px;
+}
+
+.login_input ul li label {
+	display: none;
+}
+
+.login_input ul li input[type="password"], .login_input ul li input[type="text"]
+	{
+	box-sizing: border-box;
+	width: 100%;
+	height: 39px;
+	border: 1px solid #6bc3b0;
+	background: #f9f9f9;
+	font-size: 14px;
+	padding-left: 10px;
+	outline: 0;
+}
+
+.login_input ul li select {
+	width: 281px;
+	height: 39px;
+	border: 1px solid #dfdfdf;
+	font-size: 13px;
+	padding-left: 6px;
+}
+
+.login_input ul li.chk {
+	font-size: 13px;
+}
+
+.login_input ul li input.btn_login {
+	box-sizing: border-box;
+	width: 100%;
+	height: 45px;
+	margin-top: 6px;
+	border: none;
+	background: #6bc3b0;
+	color: #fff;
+	font-size: 18px;
+	font-weight: bold;
+	cursor: pointer;
+	outline: 0;
+}
+
+.login_input ul.btn_idpw {
+	margin-top: 5px;
+}
+
+.login_input ul.btn_idpw li {
+	float: left;
+	padding-right: 9px;
+	border-right: 1px solid #d6d6d6;
+	margin-right: 9px;
+}
+
+.login_input ul.btn_idpw li:last-child {
+	padding-right: 0;
+	border-right: 0;
+}
+
+.login_input ul.btn_idpw li a {
+	text-decoration: none;
+	color: #666;
+}
+
+.login_input ul.btn_idpw li:hover a {
+	color: #528e37;
+}
+
+#loginForm {
+    padding: 55px;
+    background-color: #f8fffe;
+    margin-top: 0 !important;
+    border-radius: 20px;
+    border: 1px solid #6bc3b0;
+}
+.login_icon {
+	width: 100%;
+	margin-top: 1.5rem;
+}
+
+.login_icon a:hover {
+    filter: grayscale(1);
+}
+.login_icon a {
+	float:left;
+	display: block;
+	border-radius: 50%;
+	overflow: hidden;
+    margin-right: 1rem;
+    width: 28%;
+    filter: grayscale(0);
+}
+.login_icon a.kakko {
+	margin-right: 0 !important;
+}
+.log_icon_box {
+    margin: 0 auto;
+    width: 68%;
+}
+.login_icon a img {
+	width: 100%;
+}
+
+/* .login_icon a.google {
+	border-radius: 50%;
+  border: 2px solid;
+  border-image-source: linear-gradient(45deg, rgb(0,143,104), rgb(250,224,66));
+  border-image-slice: 1;
+} */
+
+
+a.google{
+  background: linear-gradient(to right, #f00,#fbbc05,#34a853,#4285f4);
+  border-radius: 50%;
+  color: #122dff;
+  display: inline-block;
+  font-size: 20px;
+  padding: 2px;
+  text-decoration: none;
+}

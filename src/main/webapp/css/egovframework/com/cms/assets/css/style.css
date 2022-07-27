@@ -1,0 +1,285 @@
+/*!
+ * live-preview v0.0.1
+ * Copyright 2015 Foxy Themes 
+ * All rights reserved 
+ */
+* {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    font-family: "proxima-nova", sans-serif;
+    background: #727272
+}
+
+body,
+html {
+    height: 100%
+}
+
+header {
+    background: #292929;
+    border-bottom: 1px solid #292929;
+    position: relative;
+    z-index: 100;
+    float: left;
+    width: 100%
+}
+
+header,
+.identity {
+    line-height: 60px;
+    height: 60px
+}
+
+header a {
+    text-decoration: none
+}
+
+.identity {
+    border-right: 1px solid #303030;
+    height: auto;
+    line-height: 0;
+    padding: 8px 20px;
+    padding-right: 30px
+}
+
+@media (max-width: 768px) {
+    .identity {
+        display: none
+    }
+}
+
+.identity img {
+    max-height: 44px
+}
+
+.identity,
+.currentProject {
+    float: left;
+    font-family: "museo-sans", sans-serif;
+    font-size: 19px;
+    font-weight: 100;
+    white-space: nowrap;
+    color: #d8d8d8
+}
+
+.currentProject {
+    padding: 0 30px;
+    cursor: pointer
+}
+
+@media (max-width: 768px) {
+    .currentProject {
+        padding: 0 13px
+    }
+}
+
+.currentProject > span.icon {
+    margin-left: 8px
+}
+
+.currentProject:hover {
+    background-color: #2e2e2e
+}
+
+.currentProject .tag {
+    font-size: 9px;
+    font-weight: 900;
+    display: inline-block;
+    padding: 5px 7px;
+    line-height: 1;
+    margin-left: 15px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    vertical-align: middle;
+    color: #f0f0f0;
+    background: #363636
+}
+
+@media (max-width: 768px) {
+    .currentProject .tag {
+        display: none
+    }
+}
+
+.toolbar__item a:hover {
+    background-color: #2e2e2e
+}
+
+.currentProjectSubpages {
+    display: none
+}
+
+.currentProjectSubpages.projectHasSubpages {
+    display: inline-block
+}
+
+.projects {
+    max-height: 0;
+    -webkit-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+    top: 60px;
+    z-index: 100;
+    background: #242424;
+    clear: left;
+    white-space: nowrap;
+    overflow: auto;
+    overflow-y: hidden
+}
+
+.projects ul {
+    padding: 20px 0
+}
+
+.projects-isActive .projects {
+    max-height: 200px
+}
+
+.toolbar,
+.toolbar li,
+.projects ul,
+.projects li {
+    list-style: none
+}
+
+.project {
+    display: inline-block;
+    margin: 0 1em;
+    width: 256px;
+    position: relative;
+    border: 2px solid transparent;
+    padding: 2px
+}
+
+.project img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle
+}
+
+.project__tooltip {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: center;
+    font-size: 11px;
+    padding: 5px 0;
+    opacity: 0;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease
+}
+
+.project:hover .project__tooltip {
+    filter: alpha(opacity=100);
+    opacity: 1
+}
+
+.project:hover,
+.project-isActive {
+    border-color: #393939
+}
+
+.toolbar {
+    float: right;
+    white-space: nowrap
+}
+
+.toolbar__item {
+    float: left;
+    border-left: 1px solid #303030
+}
+
+.disableResponsiveButtons .toolbar__resolution {
+    display: none
+}
+
+.toolbar__item a {
+    display: block;
+    padding: 0 1em;
+    color: #4f4f4f;
+    font-size: 20px
+}
+
+.toolbar__item a > i {
+    vertical-align: middle;
+    position: relative;
+    top: -1px
+}
+
+@media (max-width: 768px) {
+    .toolbar__item a {
+        padding: 0 13px
+    }
+}
+
+.toolbar__buy {
+    padding: 12px 17px
+}
+
+.toolbar__buy a {
+    background-color: #36c7be;
+    color: #fff;
+    font-family: "museo-sans", sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 3px;
+    border-bottom: 3px solid #31b3ab;
+    line-height: 34px;
+    outline: none;
+    padding: 0 20px
+}
+
+.toolbar__buy a:hover {
+    background-color: #49cec5
+}
+
+.toolbar__buy a:active {
+    border-bottom-width: 0;
+    border-top: 3px solid #2fafa7;
+    background-color: #34bfb6
+}
+
+@media (max-width: 768px) {
+    .toolbar__buy {
+        padding: 12px 10px
+    }
+
+    .toolbar__buy a {
+        padding: 0 12px
+    }
+}
+
+.toolbar__buy.disableBuyButton {
+    display: none
+}
+
+.preview {
+    height: -webkit-calc(100% - 61px);
+    height: calc(100% - 61px);
+    display: block;
+    width: 100%;
+    -webkit-transform: translate3d(0, 0, 0);
+    margin: auto
+}
+
+@media all and (max-width:960px) {
+    .breadcrumb {
+        display: none
+    }
+}
+
+@media all and (max-width:900px) {
+    .toolbar__resolution {
+        display: none
+    }
+}
+
+
+

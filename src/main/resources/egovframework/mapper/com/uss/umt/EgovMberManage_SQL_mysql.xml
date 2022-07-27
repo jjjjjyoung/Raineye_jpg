@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mberManageDAO">
+
+    <resultMap id="stplatMap" type="egovframework.com.uss.umt.service.StplatVO">
+        <result property="useStplatId" column="USE_STPLAT_ID"/>
+        <result property="useStplatCn" column="USE_STPLAT_CN"/>
+        <result property="infoProvdAgeCn" column="INFO_PROVD_AGRE_CN"/>
+    </resultMap>
+    
+ <select id="selectMberList" resultType="egovMap">
+SELECT 
+    uniqId, userTy, userId , userNm, userNick, emailAdres, birthday,sbscrbDe,level
+FROM(
+    SELECT 
+        ESNTL_ID              uniqId,
+        'USR01'               userTy,
+        MBER_ID               userId,
+        MBER_NM               userNm,
+        MBER_NICK               userNick,
+        MBER_EMAIL_ADRES      emailAdres,
+        BIRTHDAY      		  birthday,
+        SBSCRB_DE             sbscrbDe,
+        LEVEL                 level
+    FROM    COMTNGNRLMBER
+    ) A
+        WHERE 1=1
+        <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isNotEmpty(searchKeyword)">
+	        <if test="searchCondition == 0">AND
+	             userId LIKE #{searchKeyword}
+	        </if>
+	        <if test="searchCondition == 1">AND
+	             userNm LIKE '%' #{searchKeyword} '%'
+	        </if>
+        </if>
+        <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isNotEmpty(level)">
+			AND level = #{level}
+        </if>
+        ORDER BY sbscrbDe DESC
+        LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+    </select>
+    
+    
+        <select id="selectMberListTotCnt" resultType="int">
+            SELECT COUNT(1) totcnt
+            FROM(
+            SELECT 
+                ESNTL_ID              uniqId,
+		        'USR01'               userTy,
+		        MBER_ID               userId,
+		        MBER_NM               userNm,
+		        MBER_NM               userNick,
+		        MBER_EMAIL_ADRES      emailAdres,
+		        BIRTHDAY      		  birthday,
+		        SBSCRB_DE             sbscrbDe,
+		        LEVEL                 level
+            FROM    COMTNGNRLMBER
+            ) A
+        WHERE 1=1
+
+            <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isNotEmpty(searchKeyword)">
+	            <if test="searchCondition == 0">AND
+	                 userId LIKE #{searchKeyword}
+	            </if>
+	            <if test="searchCondition == 1">AND
+	                 userNm LIKE '%' #{searchKeyword} '%'
+	            </if>
+            </if>
+            <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isNotEmpty(level)">
+				AND level = #{level}
+        	</if>
+    </select>
+    
+    <insert id="insertMber_S">
+        
+        
+            INSERT INTO COMTNGNRLMBER 
+                (   
+                    ESNTL_ID          ,
+                    MBER_ID          ,
+                    MBER_NM          ,
+                    PASSWORD         ,
+                    SEXDSTN_CODE     ,
+                    MBER_STTUS       ,
+                    GROUP_ID         ,
+                    MBER_EMAIL_ADRES ,
+                    SBSCRB_DE        ,
+                    MBER_NICk        ,        
+                    BIRTHDAY         ,
+					MAILLING         ,
+					SMS              ,
+					INFO_OPEN        ,
+					LEVEL			)
+              VALUES(
+                    #{uniqId},
+                    #{mberId},
+                    #{mberNm},
+                    PASSWORD(#{password}),
+                    #{sexdstnCode},
+                    #{mberSttus},
+                    #{groupId},
+                    #{mberEmailAdres},
+                    sysdate(),
+                    #{mberNick},
+                    #{birthday},
+                    #{mailling},
+                    #{sms},
+                    #{infoOpen},
+                    #{level} )              
+         
+    </insert>
+    
+    <delete id="deleteMber_S">
+        
+            DELETE FROM COMTNGNRLMBER 
+            WHERE ESNTL_ID=#{delId}
+        
+    </delete>
+
+    <insert id="insertOutMberData">
+
+
+            INSERT INTO COMTNOUTMBER
+                (
+                    MBER_ID          ,
+                    MBER_NM          ,
+                    OUT_RE           ,
+                    OUT_OP           ,
+					OUT_DATE		)
+              VALUES(
+                    #{mberId},
+                    #{mberNm},
+                    #{outRe},
+                    #{outOp},
+                    NOW() )
+
+    </insert>
+
+    <delete id="deleteOutMber">
+
+            DELETE FROM COMTNGNRLMBER
+            WHERE MBER_ID=#{mberId}
+
+    </delete>
+    
+    <select id="selectMber_S" resultType="egovframework.com.uss.umt.service.MberManageVO">
+        
+            SELECT
+                ESNTL_ID         uniqId,
+                MBER_ID          mberId,
+                MBER_NM          mberNm,
+                PASSWORD         password,
+                SEXDSTN_CODE     sexdstnCode,
+                MBER_STTUS       mberSttus,
+                GROUP_ID         groupId,
+                MBER_EMAIL_ADRES mberEmailAdres,
+                MBER_NICK 		 mberNick,
+                BIRTHDAY 		 birthday,
+                MAILLING 		 mailling,
+                SMS 			 sms,
+                INFO_OPEN 		 infoOpen,
+                LEVEL 			 level,
+                SBSCRB_DE        sbscrbDe,
+                LOCK_AT          lockAt
+            FROM COMTNGNRLMBER
+            WHERE ESNTL_ID=#{uniqId}
+        
+    </select>
+    
+    <update id="updateMber_S">
+        
+            UPDATE COMTNGNRLMBER 
+            SET MBER_ID          =    #{mberId},
+                MBER_NM          =    #{mberNm},
+                <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isNotEmpty(password)">
+                	PASSWORD         =    password(#{password}),
+                </if>
+                SEXDSTN_CODE     =    #{sexdstnCode},
+                
+                
+                MBER_EMAIL_ADRES =    #{mberEmailAdres},
+                MBER_NICK        =    #{mberNick},
+                BIRTHDAY         =    #{birthday},
+                MAILLING         =    #{mailling},
+                SMS              =    #{sms},
+                INFO_OPEN =    #{infoOpen},
+                LEVEL            =    #{level}
+            WHERE ESNTL_ID=#{uniqId}
+        
+    </update>
+    
+    <select id="selectStplat_S" resultMap="stplatMap">
+        
+            SELECT
+                USE_STPLAT_ID           ,
+                USE_STPLAT_CN           ,
+                INFO_PROVD_AGRE_CN      
+            FROM COMTNSTPLATINFO
+            WHERE USE_STPLAT_ID=#{stplatId}
+        
+    </select>
+    
+    <update id="updatePassword_S">
+        
+            UPDATE COMTNGNRLMBER 
+            SET 
+                   PASSWORD   =  #{password}
+            WHERE  ESNTL_ID  = #{uniqId}
+        
+    </update>
+    
+    <select id="selectPassword_S" resultType="egovframework.com.uss.umt.service.MberManageVO">
+        
+            SELECT
+                    PASSWORD          password 
+            FROM    COMTNGNRLMBER
+            WHERE   ESNTL_ID=#{uniqId}
+        
+    </select>
+
+    <update id="updateLockIncorrect">
+            UPDATE COMTNGNRLMBER 
+ 			   SET  LOCK_AT = NULL 
+			     ,  LOCK_CNT  = NULL 
+			     ,  LOCK_LAST_PNTTM = NULL 
+            WHERE  ESNTL_ID  = #{uniqId}
+    </update>
+    
+    <update id="updateMberPaid">
+		UPDATE COMTNGNRLMBER 
+			SET  LEVEL = #{level}
+		WHERE  MBER_ID  = #{mberId}
+    </update>
+
+</mapper>

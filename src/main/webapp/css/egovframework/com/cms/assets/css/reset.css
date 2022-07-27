@@ -1,0 +1,94 @@
+/*reset.css*/
+
+@charset "utf-8";
+
+      @font-face {
+            font-family: proxima-nova;
+            src: url(https://use.typekit.net/af/71f83c/00000000000000003b9b093b/27/l?subset_id=2&fvd=n7&v=3) format("woff2"), url(https://use.typekit.net/af/71f83c/00000000000000003b9b093b/27/d?subset_id=2&fvd=n7&v=3) format("woff"), url(https://use.typekit.net/af/71f83c/00000000000000003b9b093b/27/a?subset_id=2&fvd=n7&v=3) format("opentype");
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: proxima-nova;
+            src: url(https://use.typekit.net/af/86b539/00000000000000003b9b093a/27/l?subset_id=2&fvd=i7&v=3) format("woff2"), url(https://use.typekit.net/af/86b539/00000000000000003b9b093a/27/d?subset_id=2&fvd=i7&v=3) format("woff"), url(https://use.typekit.net/af/86b539/00000000000000003b9b093a/27/a?subset_id=2&fvd=i7&v=3) format("opentype");
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        @font-face {
+            font-family: proxima-nova;
+            src: url(https://use.typekit.net/af/a3eee8/00000000000000003b9b093c/27/l?subset_id=2&fvd=n8&v=3) format("woff2"), url(https://use.typekit.net/af/a3eee8/00000000000000003b9b093c/27/d?subset_id=2&fvd=n8&v=3) format("woff"), url(https://use.typekit.net/af/a3eee8/00000000000000003b9b093c/27/a?subset_id=2&fvd=n8&v=3) format("opentype");
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: proxima-nova;
+            src: url(https://use.typekit.net/af/ed0e78/00000000000000003b9b0931/27/l?subset_id=2&fvd=n1&v=3) format("woff2"), url(https://use.typekit.net/af/ed0e78/00000000000000003b9b0931/27/d?subset_id=2&fvd=n1&v=3) format("woff"), url(https://use.typekit.net/af/ed0e78/00000000000000003b9b0931/27/a?subset_id=2&fvd=n1&v=3) format("opentype");
+            font-weight: 100;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: proxima-nova;
+            src: url(https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/l?subset_id=2&fvd=n6&v=3) format("woff2"), url(https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/d?subset_id=2&fvd=n6&v=3) format("woff"), url(https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/a?subset_id=2&fvd=n6&v=3) format("opentype");
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: proxima-nova;
+            src: url(https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/l?subset_id=2&fvd=n4&v=3) format("woff2"), url(https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/d?subset_id=2&fvd=n4&v=3) format("woff"), url(https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/a?subset_id=2&fvd=n4&v=3) format("opentype");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: proxima-nova;
+            src: url(https://use.typekit.net/af/6aec08/00000000000000003b9b0935/27/l?subset_id=2&fvd=i4&v=3) format("woff2"), url(https://use.typekit.net/af/6aec08/00000000000000003b9b0935/27/d?subset_id=2&fvd=i4&v=3) format("woff"), url(https://use.typekit.net/af/6aec08/00000000000000003b9b0935/27/a?subset_id=2&fvd=i4&v=3) format("opentype");
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        @font-face {
+            font-family: proxima-nova;
+            src: url(https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/l?subset_id=2&fvd=n3&v=3) format("woff2"), url(https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/d?subset_id=2&fvd=n3&v=3) format("woff"), url(https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/a?subset_id=2&fvd=n3&v=3) format("opentype");
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: museo-sans;
+            src: url(https://use.typekit.net/af/635674/00000000000000000000e800/27/l?subset_id=2&fvd=n1&v=3) format("woff2"), url(https://use.typekit.net/af/635674/00000000000000000000e800/27/d?subset_id=2&fvd=n1&v=3) format("woff"), url(https://use.typekit.net/af/635674/00000000000000000000e800/27/a?subset_id=2&fvd=n1&v=3) format("opentype");
+            font-weight: 100;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: museo-sans;
+            src: url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/l?subset_id=2&fvd=n3&v=3) format("woff2"), url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/d?subset_id=2&fvd=n3&v=3) format("woff"), url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/a?subset_id=2&fvd=n3&v=3) format("opentype");
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: museo-sans;
+            src: url(https://use.typekit.net/af/a28b50/00000000000000000000e803/27/l?subset_id=2&fvd=n5&v=3) format("woff2"), url(https://use.typekit.net/af/a28b50/00000000000000000000e803/27/d?subset_id=2&fvd=n5&v=3) format("woff"), url(https://use.typekit.net/af/a28b50/00000000000000000000e803/27/a?subset_id=2&fvd=n5&v=3) format("opentype");
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: museo-sans;
+            src: url(https://use.typekit.net/af/e3ca36/00000000000000000000e805/27/l?subset_id=2&fvd=n7&v=3) format("woff2"), url(https://use.typekit.net/af/e3ca36/00000000000000000000e805/27/d?subset_id=2&fvd=n7&v=3) format("woff"), url(https://use.typekit.net/af/e3ca36/00000000000000000000e805/27/a?subset_id=2&fvd=n7&v=3) format("opentype");
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: museo-sans;
+            src: url(https://use.typekit.net/af/9cf49e/00000000000000000000e807/27/l?subset_id=2&fvd=n9&v=3) format("woff2"), url(https://use.typekit.net/af/9cf49e/00000000000000000000e807/27/d?subset_id=2&fvd=n9&v=3) format("woff"), url(https://use.typekit.net/af/9cf49e/00000000000000000000e807/27/a?subset_id=2&fvd=n9&v=3) format("opentype");
+            font-weight: 900;
+            font-style: normal;
+        }

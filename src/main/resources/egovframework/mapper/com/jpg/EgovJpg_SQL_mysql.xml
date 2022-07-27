@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HtmlEditorDAO">
+ 
+    <insert id="insertHtmlEditor" parameterType="egovframework.com.jpg.service.HtmlEditorVO" >
+ 
+       INSERT INTO COMTNCTS(
+       CTS_ID, CTS_NM, CTS_CN, CTS_TI
+       ) VALUES(
+       #{ctsId}, #{ctsNm}, #{ctsCn}, #{ctsTi}
+       )
+
+	</insert>
+	
+	
+	<select id="selectHtmlEditor" parameterType="egovframework.com.jpg.service.HtmlEditorVO" resultType="egovframework.com.jpg.service.HtmlEditorVO">
+	
+	       SELECT
+	       	CTS_IDX as ctsIdx,
+	       	CTS_ID as ctsId,
+	       	CTS_NM as ctsNm,
+	       	CTS_CN as ctsCn,
+	       	CTS_TI as ctsTi
+	       FROM
+	       	COMTNCTS
+	       WHERE
+	       	CTS_ID = #{ctsId}
+	
+	</select>
+	
+	<select id="selectHtmlEditorList" resultType="java.util.Map">
+	
+	       SELECT
+	       	CTS_IDX as ctsIdx,
+	       	CTS_ID as ctsId,
+	       	CTS_NM as ctsNm,
+	       	CTS_CN as ctsCn,
+	       	CTS_TI as ctsTi
+	       FROM
+	       	COMTNCTS
+	       
+	
+	</select>
+	
+	
+	<update id="updateHtmlEditor" parameterType="egovframework.com.jpg.service.HtmlEditorVO">
+	
+		UPDATE COMTNCTS SET 
+		      CTS_NM = #{ctsNm},
+		      CTS_CN = #{ctsCn},
+		      CTS_TI = #{ctsTi}
+		WHERE CTS_IDX = #{ctsIdx} 
+	
+	</update>
+	
+	<delete id="deleteHtmlEditor" parameterType="egovframework.com.jpg.service.HtmlEditorVO">
+	    DELETE FROM COMTNCTS
+		WHERE CTS_IDX = #{ctsIdx}
+	</delete>
+
+</mapper>

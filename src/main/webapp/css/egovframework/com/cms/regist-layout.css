@@ -1,0 +1,232 @@
+@charset "UTF-8";
+
+.layout-container h1,
+.layout-container h2,
+.layout-container h3{
+	font-size:1rem;
+	font-weight:bold;
+	color:#333;
+}
+.layout-container form, div.board, .layout-container {
+	width: auto !important;
+}
+
+.layout-container form {
+    padding: 1rem;
+    /* width: auto; */
+    border-top: 3px solid #6bc3b0;
+    border-bottom: 1px solid #6bc3b0;
+    box-shadow: 3px 4px 6px #dbdbdb;
+}
+
+
+table.wTableFrm {
+	padding: 0;
+	/* width: 50%;
+	min-width: 500px; */
+}
+
+
+table.wTableFrm form {
+	padding: 1rem;
+}
+
+table.wTable {
+	width: 100%;
+}
+
+.tit02 {
+	padding-bottom: 1rem;
+	padding-top: 0;
+}
+
+div.btn {
+	margin-top: 1rem;
+    padding: .438rem 0 0 0 !important;
+    /* align-content: center; */
+    /* align-self: center; */
+    /* width: 100%; */
+    /* position: relative; */
+    /* clear: both; */
+    margin-left: 45%;
+    /* content: ''; */
+}
+.layout-container h2 {
+	background-color: #f0f0f0;
+	margin-bottom: 0;
+	padding-bottom: 1.2rem;
+	font-size: 1.5rem;
+}
+
+
+.btn {
+	padding: .438rem 0 0 0;
+	display: flex;
+}
+
+.datatables-demo tbody tr td form {
+	background: none!important ;
+}
+
+
+
+form {
+	padding: 1rem;
+}
+
+table.wTableFrm {
+	padding: 0!important;
+}
+
+.btn input.s_submit:first-child {
+	background: #75c4e6!important;
+}
+.btn .btn_s a {
+	background: #6bc3b0!important;
+}
+caption {
+	display: none;
+}
+/* 
+ tr {
+ 	display: flex;
+    flex-direction: column;
+    width: 100% !important;
+}
+
+table tbody tr td {
+	align-self: center;
+}
+
+table {
+	border-collapse: unset !important;
+}
+
+th {
+	font-size:1.1rem;
+}
+
+table tbody tr th, table tbody tr td {
+	margin-bottom: 0.5rem;
+	width: 100%;
+}
+
+table tbody tr td input {
+	margin-right: 0;
+}
+textarea {
+	width: 100%;
+} */
+
+
+table.wTableFrm table, table.wTable {
+    border-collapse: collapse !important;
+    width: 100%;
+}
+
+table.wTableFrm table th, table.wTable th {
+	width:40%;
+}
+table.wTableFrm table td, table.wTable td {
+	width:60%;
+}
+table.wTableFrm table th, table.wTableFrm table td, table.wTable th, table.wTable td {
+    border: 1px solid #dbdbdb;
+    padding: 0.5rem;
+    /* width: auto !important; */
+    font-size: 1rem;
+}
+
+table.wTableFrm table th,
+table.wTable th {
+    background: #eef9f7;
+    border-right: none !important;
+}
+
+table.wTableFrm span.pilsu,
+table.wTable span.pilsu {
+    color: #d80000;
+}
+
+table.wTableFrm textarea,
+table.wTable textarea {
+    border: 1px solid #dbdbdb;
+    background: #fcfcfc;
+    padding: 10px;
+}
+
+input {
+    padding: 0.2rem;
+    border: 1px solid #dbdbdb;
+    background: #fcfcfc;
+    margin-right: 0!important;
+}
+textarea {
+	width: 100%;
+}
+
+#egovComFileList {
+	min-height: 20px;
+}
+
+/* 20191017 add style */
+.layout-container form {
+    width: 50% !important;
+	padding:1rem;
+}
+.wTableFrm {
+	padding: 0;
+}
+.wTableFrm table th, .wTable th {
+	width: 15%;
+}
+.wTableFrm table td, .wTable td {
+	width: 85%;
+}
+ 
+input, select, textarea {
+    outline: 0; 
+    padding: 0.2rem 10px !important;
+    border: 1px solid #ccc;
+    background: #fff;
+    box-sizing: border-box;
+}
+textarea {
+    width:100%;
+}
+
+.btn_s2 {background:#efb98d!important;
+    color: #fff;
+    border: none;
+    padding: 2px 8px 2px 8px !important;
+    border-radius: 5px; text-align: center; margin:0 5px !important; }
+
+@media (max-width:768px) {
+	.layout-container form {
+    	width: 100%!important;
+    }
+}
+
+
+
+/* 20191021 add style */
+/* 문자메시지 등록 */
+.btnarea2 { overflow: hidden; margin: 10px 0;}
+.btnarea2 span { float: left; display: block; margin-right: 10px;}
+.btnarea2 span a { display: block; width: 50px; height: 25px; line-height: 26px; background: #999; color: #fff; border-radius: 5px; text-align: center;  }
+.btnarea2 span:hover a { background: #666;}
+.sendNumb { width: 100%; margin-bottom: 5px;}
+
+.btn_s .btn_s2:nth-child(2):last-child {
+	background: #999 !important;
+}
+
+.gray {
+	background: #9e9e9e !important;
+}
+
+
+/* 20191118 add style */
+/* 일반회원관리등록 */
+.mberInsert p { display: inline-block;}
+

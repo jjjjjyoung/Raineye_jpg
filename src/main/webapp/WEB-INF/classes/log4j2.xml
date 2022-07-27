@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[log4j]%d %5p [%c] %m%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="java.sql" level="ERROR" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        <Logger name="egovframework" level="ERROR" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+		  <!-- log SQL with timing information, post execution -->
+	    <Logger name="jdbc.sqltiming" level="ERROR" additivity="false">
+	        <AppenderRef ref="console" />
+	    </Logger>
+	    <Logger name="org.springframework" level="ERROR" additivity="false">
+	        <AppenderRef ref="console" />
+	    </Logger>
+   	    <Logger name="BBSArticle" level="DEBUG" additivity="false">
+	        <AppenderRef ref="console" />
+	    </Logger>
+        <Logger name="SnsManageDAO" level="DEBUG" additivity="false">
+	        <AppenderRef ref="console" />
+	    </Logger>
+        <Root level="ERROR">
+            <AppenderRef ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>

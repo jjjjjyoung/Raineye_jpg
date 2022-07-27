@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menuManageDAO">
+    
+    <select id="parentName" parameterType="String" resultType="egovframework.com.cms.web.MenuManageNewVO">
+        SELECT
+        	me_id as meId,
+        	me_code as meCode,
+        	me_name as meName,
+        	me_link as meLink,
+        	me_target as meTarget
+        FROM COMTNMENUINFONEW 
+        WHERE me_use = 1
+        AND me_code= #{parentCode}
+        
+    </select>
+    
+    <select id="seachMenu" parameterType="String" resultType="egovframework.com.cms.web.MenuManageNewVO">
+        SELECT
+        	MAX(me_id) as meId,
+        	MAX(me_code) as meCode,
+        	MAX(me_name) as meName,
+        	MAX(me_link) as meLink,
+        	MAX(me_target) as meTarget
+        FROM COMTNMENUINFONEW 
+        WHERE me_use = 1
+        AND me_link like CONCAT('%',#{ctnId},'%')
+        LIMIT 1
+        
+    </select>
+    
+    
+    <select id="selectMainMenuListNew" parameterType="egovframework.com.cms.web.MenuManageNewVO" resultType="egovframework.com.cms.web.MenuManageNewVO">
+        SELECT
+        	me_id as meId, 
+        	me_code as meCode,
+        	me_name as meName,
+        	me_link as meLink,
+        	me_target as meTarget,
+        	(
+			  SELECT 
+			  	COUNT(0) 
+				FROM 
+					COMTNBBS as CB 
+				WHERE 
+					CM.ME_LINK LIKE CONCAT('%',CB.BBS_ID,'%') 
+					AND CB.FRST_REGIST_PNTTM > DATE_SUB(NOW(), INTERVAL 3 DAY)
+					AND CB.USE_AT = 'Y') AS meNewCount
+        
+        FROM COMTNMENUINFONEW as CM
+        WHERE me_use = 1
+        <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isEquals(mePlace,'0')">
+        	AND me_place ='0'
+        </if>
+        <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isEquals(mePlace,'1')">
+        	AND me_place ='1'
+        </if> 
+        ORDER BY me_code ASC
+    </select>
+    
+    <delete id="deleteMenuManageListNew">
+        DELETE FROM COMTNMENUINFONEW              
+			WHERE me_code=#{meCode}         
+        
+    </delete>
+    
+    <select id="beforeDeleteMenuList" parameterType="comDefaultVO" resultType="int">
+        SELECT 
+        	count(*) as cnt
+        FROM COMTNMENUINFONEW
+        WHERE me_code like CONCAT(#{meCode},'%') AND me_code != #{meCode}
+        
+        
+    </select>
+    
+    <select id="selectMenuManageListNew" resultType="egovMap">
+		SELECT * FROM COMTNMENUINFONEW ORDER BY me_code ASC
+	</select>
+	
+    <insert id="insertMenuManageNew">
+        INSERT INTO COMTNMENUINFONEW 
+			( me_code
+            , me_name
+            , me_link
+            , me_target
+            , me_order
+            , me_use
+            , me_place
+            )
+			VALUES (   
+				#{meCode}
+              , #{meName}
+              , #{meLink}  
+              , #{meTarget}
+              , #{meOrder}
+              , #{meUse}
+              , #{mePlace}
+            )
+        
+    </insert>
+    
+    
+    <select id="getMaxmeCode" parameterType="egovframework.com.cms.web.MenuManageNewVO" resultType="egovframework.com.cms.web.MenuManageNewVO">
+        SELECT 
+        	MAX(me_code) as meCode
+        FROM COMTNMENUINFONEW
+        WHERE 1=1
+        <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isEquals(meDepth,'1')">
+        	AND length(me_code) = 2 
+        </if>
+        <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isEquals(meDepth,'2')">
+        	AND length(me_code) = 4 and me_code like CONCAT(#{meParent},'%')
+        </if>
+        <if test="@egovframework.com.cmm.util.EgovMybaitsUtil@isEquals(meDepth,'3')">
+        	AND length(me_code) = 6 and me_code like CONCAT(#{meParent},'%')
+        </if>
+        
+    </select>
+    
+    <update id="updateMenuManageNew">
+        
+        UPDATE COMTNMENUINFONEW 
+			SET  me_name         = #{meName}       
+            , me_link           = #{meLink}         
+            , me_target     = #{meTarget}    
+            , me_order = #{meOrder}
+            , me_use   = #{meUse}
+            , me_place   = #{mePlace}    
+            WHERE me_id=#{meId}
+		
+        
+    </update>
+	
+    <select id="selectMenuManageNew" parameterType="egovframework.com.cms.web.MenuManageNewVO" resultType="egovframework.com.cms.web.MenuManageNewVO">
+		
+			SELECT 
+				me_id AS meId,
+				me_code AS meCode,
+				me_name AS meName,
+				me_link AS meLink,
+				me_target AS meTarget,
+				me_order AS meOrder,
+				me_use AS meUse,
+				me_place AS mePlace
+			FROM COMTNMENUINFONEW
+			WHERE me_id = #{meId}
+		
+	</select>
+	
+    <!-- end -->
+
+	<select id="selectMenuManageList_D" parameterType="comDefaultVO" resultType="egovMap">
+		
+			SELECT 
+				  MENU_NO AS menuNo
+				, MENU_ORDR AS menuOrdr
+				, MENU_NM AS menuNm
+				, UPPER_MENU_NO AS upperMenuId
+				, MENU_DC AS menuDc
+				, RELATE_IMAGE_PATH AS relateImagePath
+				, RELATE_IMAGE_NM AS relateImageNm
+				, PROGRM_FILE_NM AS progrmFileNm
+				, LINK_URL AS linkUrl
+			FROM COMTNMENUINFO 
+			WHERE binary(MENU_NM) like CONCAT('%', #{searchKeyword}, '%')
+			LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+		 
+	</select> 
+
+	<!-- 총건수 조회 -->
+	<select id="selectMenuManageListTotCnt_S" parameterType="comDefaultVO" resultType="int">
+		
+		SELECT COUNT(MENU_NO) AS totcnt
+		  FROM COMTNMENUINFO
+		 WHERE binary(MENU_NM) like CONCAT('%', #{searchKeyword}, '%')
+		
+	</select>
+
+
+	<select id="selectMenuManage_D" parameterType="comDefaultVO" resultType="egovframework.com.sym.mnu.mpm.service.MenuManageVO">
+		
+			SELECT 
+				  MENU_NO AS menuNo
+				, MENU_ORDR AS menuOrdr
+				, MENU_NM AS menuNm
+				, UPPER_MENU_NO AS upperMenuId
+				, MENU_DC AS menuDc
+				, RELATE_IMAGE_PATH AS relateImagePath
+				, RELATE_IMAGE_NM AS relateImageNm
+				, PROGRM_FILE_NM AS progrmFileNm
+				, LINK_URL AS linkUrl
+			FROM COMTNMENUINFO
+			WHERE MENU_NO = #{searchKeyword}
+		
+	</select>
+	
+	<insert id="insertMenuManage_S">
+		
+			INSERT INTO COMTNMENUINFO 
+				( MENU_NO
+            , MENU_ORDR
+            , MENU_NM
+            , UPPER_MENU_NO
+            , MENU_DC
+            , RELATE_IMAGE_PATH
+            , RELATE_IMAGE_NM
+            , PROGRM_FILE_NM
+            , LINK_URL)
+			VALUES (   #{menuNo}
+                  , #{menuOrdr}
+                  , #{menuNm}  
+                  , #{upperMenuId}
+                  , #{menuDc}
+                  , #{relateImagePath}
+                  , #{relateImageNm}
+                  , #{progrmFileNm} 
+                  , #{linkUrl})
+		
+	</insert>
+
+	<update id="updateMenuManage_S">
+		
+			UPDATE COMTNMENUINFO 
+			SET  MENU_ORDR         = #{menuOrdr}       
+            , MENU_NM           = #{menuNm}         
+            , UPPER_MENU_NO     = #{upperMenuId}    
+            , MENU_DC           = #{menuDc}         
+            , RELATE_IMAGE_PATH = #{relateImagePath}
+            , RELATE_IMAGE_NM   = #{relateImageNm}  
+            , PROGRM_FILE_NM    = #{progrmFileNm} 
+            , LINK_URL          = #{linkUrl}
+			WHERE MENU_NO=#{menuNo}
+		
+	</update>
+
+	<delete id="deleteMenuManage_S">
+		                          
+			DELETE FROM COMTNMENUINFO              
+			WHERE MENU_NO=#{menuNo}                 
+		                                
+	</delete> 
+	
+	<!-- 메뉴번호 존재여부 조회 -->
+	<select id="selectMenuNoByPk" parameterType="egovframework.com.sym.mnu.mpm.service.MenuManageVO" resultType="int">
+		
+		SELECT COUNT(MENU_NO) AS totcnt
+		  FROM COMTNMENUINFO
+		 WHERE MENU_NO = #{menuNo}
+		
+	</select>
+	
+	<!-- 상위 메뉴번호 존재여부 조회 -->
+	<select id="selectUpperMenuNoByPk" parameterType="egovframework.com.sym.mnu.mpm.service.MenuManageVO" resultType="int">
+		
+		SELECT COUNT(MENU_NO) AS totcnt
+		  FROM COMTNMENUINFO
+		 WHERE UPPER_MENU_NO = #{menuNo}
+		
+	</select>
+
+	<select id="selectMenuListT_D" parameterType="comDefaultVO" resultType="egovMap">
+		 
+            SELECT
+			      MENU_NO AS menuNo
+				, MENU_ORDR AS menuOrdr
+				, MENU_NM AS menuNm
+				, UPPER_MENU_NO AS upperMenuId
+				, MENU_DC AS menuDc
+				, RELATE_IMAGE_PATH AS relateImagePath
+				, RELATE_IMAGE_NM AS relateImageNm
+				, PROGRM_FILE_NM AS progrmFileNm
+				, LINK_URL AS linkUrl
+			FROM COMTNMENUINFO 
+			WHERE MENU_NO >= 10000000
+			ORDER BY MENU_ORDR
+		 
+	</select>
+
+	<delete id="deleteAllMenuList">
+		                          
+			DELETE FROM COMTNMENUINFO              
+		                                
+	</delete> 
+
+	<!-- 메뉴정보 총건수 조회 -->
+	<select id="selectMenuListTotCnt" parameterType="egovframework.com.sym.mnu.mpm.service.MenuManageVO" resultType="int">
+		
+		SELECT COUNT(MENU_NO) AS totcnt
+		  FROM COMTNMENUINFO
+		
+	</select>
+
+</mapper>

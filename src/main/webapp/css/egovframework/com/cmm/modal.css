@@ -1,0 +1,189 @@
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    right: 8px !important;
+    transform: translateY(-60%) !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    padding: 0 !important;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 8px 8px 8px 8px;
+    background-color: #0c4ca4;
+    color: white;
+    font-size:14px;
+    border-radius: 0;
+}
+.modal-title {
+    color: white;
+    font-size:14px;
+  
+}
+
+.modal-header h2,
+.modal-footer h2 {
+	float: none;
+	color: white;
+	/* text-indent: 20px; */
+	font-size: 16px !important;
+	line-height:2.0em
+}
+
+.modal-body {padding: 10px 10px 10px 10px;}
+
+.modal-body p {
+	margin: 10px 0px;
+}
+
+.modal-footer {
+    padding: 5px 5px 5px 5px;
+    background-color: white;
+    text-align: center;
+    color: white;
+}
+.modal-btn {
+    float:right;font-size:11px;
+	margin: 0px 0px 0px 5px;
+}
+.modal-alignL {
+    float:left;font-size:14px;
+	margin: 0px 0px 0px 5px;
+}
+
+
+
+
+/* 20191021 add style */
+/* 일반회원관리 등록, 아이디 중복확인 팝업 */
+.modal-header {
+	background: #6bc3b0;
+}
+.modal-header h2 { 
+	background: none;
+	padding: 0 0 0 10px !important; 
+}
+.joinModal .modal-alignL,
+.joinModal #divModalResult {
+	font-size: 14px;
+}
+.joinModal .modal-alignL input {
+	height: 25px;
+	line-height: 25px; 
+	padding-left: 10px;
+}
+.joinModal .modal-footer {
+	position: absolute;
+	left: 50%;
+	bottom: 10px;
+	transform: translateX(-50%);
+}
+.joinModal .modal-footer span {
+	padding: 0;
+}
+.joinModal .modal-footer span a {
+    padding: 6px 12px;
+    display: block;
+}
+.joinModal .modal-footer span a:hover {
+	opacity: 1;
+}
+
+.joinModal .modal-footer span.blue {
+	background: #6bc3b0;
+}
+
+.joinModal .modal-footer span.blue:hover {
+	background: #49b59e;
+}
+
+.joinModal .modal-footer span.gray:hover {
+	background: #666;
+}
+
+
+
+.modal-content { min-height:180px; position: relative;}
+
+.modal-footer { border: 0;}
+.modal-footer #footer { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);}
+
+.blue {
+	background: #6bc3b0;
+}
+
+.blue:hover {
+	background: #49b59e;
+}
+.gray {
+	background: #9e9e9e;
+}
+
+.gray:hover {
+	background: #666;
+}
+
+.btn_style1 {
+	display: inline-block;
+	padding: 6px 12px;
+	border-radius: 1px;
+}
+
+.btn_style1 a {
+	color: #fff;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.btn_style1 a:hover {
+	opacity: 1;
+}
+
+
+
