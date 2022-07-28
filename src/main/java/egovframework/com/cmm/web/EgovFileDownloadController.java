@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,39 +93,52 @@ public class EgovFileDownloadController {
 			fileVO.setAtchFileId(atchFileId);
 			fileVO.setFileSn(fileSn);
 			FileVO fvo = fileService.selectFileInf(fileVO);
-			System.out.println(fvo);
+			//System.out.println(fvo);
 
 			File uFile = new File(fvo.getFileStreCours(), fvo.getStreFileNm());
+			byte[] fileByte = FileUtils.readFileToByteArray(new File(fvo.getFileStreCours()+fvo.getStreFileNm()));
+			
+			
+			//System.out.println(uFile);
 			long fSize = uFile.length();
-			System.out.println(fSize);
+			
 
-			if (fSize > 0) {
+			//if (fSize > 0) {
+			if(fileByte.length > 0) {
 				
 				
-				String mimetype = "application/x-msdownload";
-				
-				
-				
+				String mimetype = "application/octet-stream";
 				
 				String userAgent = request.getHeader("User-Agent");
+				
+				
+				
 				HashMap<String,String> result = EgovBrowserUtil.getBrowser(userAgent);
 				if ( !EgovBrowserUtil.MSIE.equals(result.get(EgovBrowserUtil.TYPEKEY)) ) {
-					mimetype = "application/x-stuff";
+					//mimetype = "application/x-stuff";
+					mimetype = "application/octet-stream";
+					//mimetype = "application/image/jpeg";
 				}
 				
 				if(fvo.getFileExtsn().equals("pdf") || fvo.getFileExtsn().equals("PDF")) {
-					System.out.println("application/pdf success!!!");
+					//System.out.println("application/pdf success!!!");
 					mimetype = "application/pdf";
+					//contentDisposition = EgovBrowserUtil.getDisposition(fvo.getOrignlFileNm(),userAgent,"UTF-8");
+					//response.setHeader("Content-Disposition", contentDisposition);
+				}else {
+					
+					response.setHeader("Content-Transfer-Encoding", "binary");
 				}
 				
-				System.out.println(mimetype);
-
-				String contentDisposition = EgovBrowserUtil.getDisposition(fvo.getOrignlFileNm(),userAgent,"UTF-8");
+				String contentDisposition = URLEncoder.encode(fvo.getOrignlFileNm(), "UTF-8");
+				
+				response.setHeader("Content-Disposition", "attachment; filename=\"" + contentDisposition + "\"");
 				//response.setBufferSize(fSize);	// OutOfMemeory 발생
 				response.setContentType(mimetype);
-				//response.setHeader("Content-Disposition", "attachment; filename=\"" + contentDisposition + "\"");
-				response.setHeader("Content-Disposition", contentDisposition);
-				response.setContentLengthLong(fSize);
+				
+				response.setContentLength(fileByte.length);
+				
+				
 
 				/*
 				 * FileCopyUtils.copy(in, response.getOutputStream());
@@ -136,17 +150,30 @@ public class EgovFileDownloadController {
 				BufferedOutputStream out = null;
 
 				try {
-					in = new BufferedInputStream(new FileInputStream(uFile));
-					out = new BufferedOutputStream(response.getOutputStream());
-
-					FileCopyUtils.copy(in, out);
-					out.flush();
+					
+					if(fvo.getFileExtsn().equals("pdf") || fvo.getFileExtsn().equals("PDF")) {
+						
+						in = new BufferedInputStream(new FileInputStream(uFile));
+						out = new BufferedOutputStream(response.getOutputStream());
+						
+						FileCopyUtils.copy(in, out);
+						out.flush();
+						
+					}else {
+						response.getOutputStream().write(fileByte);
+						response.getOutputStream().flush();
+					}
+					
 				} catch (IOException ex) {
 					// 다음 Exception 무시 처리
 					// Connection reset by peer: socket write error
 					EgovBasicLogger.ignore("IO Exception", ex);
 				} finally {
-					EgovResourceCloseHelper.close(in, out);
+					if(fvo.getFileExtsn().equals("pdf") || fvo.getFileExtsn().equals("PDF")) {
+						EgovResourceCloseHelper.close(in, out);
+					}else {
+						response.getOutputStream().close();
+					}
 				}
 
 			} else {
